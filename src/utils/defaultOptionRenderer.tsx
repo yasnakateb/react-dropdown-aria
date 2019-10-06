@@ -1,6 +1,7 @@
 import React, { MutableRefObject } from 'react';
 import { cx } from 'emotion';
 import OptionItem, { OptionItemProps } from '../components/OptionItem';
+import OptionGroup from '../components/OptionGroup';
 import { isOptionGroup } from './helper';
 import { DropdownOption, GetStyleFunction, OptionRendererFunction } from './types';
 import { StyleKeys } from './constants';
@@ -20,33 +21,19 @@ function defaultOptionRenderer(
   let index = 0;
   return options.map((option) => {
     if (isOptionGroup(option)) { // Is group of options
-      const { groupOptions, label } = option;
+      const startingIndex = index;
+      index += option.groupOptions.length;
       return (
-        <div key={label} className={getStyle(StyleKeys.GroupContainer)}>
-          <div className={getStyle(StyleKeys.GroupHeading)}>
-            <div>{label.toUpperCase()} | &nbsp;</div>
-            <div>{groupOptions.length}</div>
-          </div>
-          {
-            groupOptions.map((groupOption) => {
-              const selected = groupOption.value === selectedOption;
-              const focused = index === focusedIndex;
-              const groupOptionClass = cx(groupOption.className, getStyle(StyleKeys.OptionItem, { selected }));
-              index += 1;
-              return (
-                <OptionItem
-                  key={groupOption.value}
-                  optionClass={groupOptionClass}
-                  onOptionClicked={onOptionClicked}
-                  option={groupOption}
-                  focused={focused}
-                  itemRenderer={itemRenderer}
-                />
-              );
-            })
-          }
-          <div className={getStyle(StyleKeys.GroupDivider)} />
-        </div>
+        <OptionGroup
+          key={option.label}
+          optionGroup={option}
+          selectedOption={selectedOption}
+          focusedIndex={focusedIndex}
+          startingIndex={startingIndex}
+          onOptionClicked={onOptionClicked}
+          getStyle={getStyle}
+          itemRenderer={itemRenderer}
+        />
       );
     }
 

@@ -117,10 +117,10 @@ const Dropdown = (props: DropdownProps) => {
 
   // ---------------- RENDER METHODS ---------------
   const renderArrow = useCallback(() => {
-    const arrowClass = getStyle(StyleKeys.Arrow);
-
     if (hideArrow) return null;
     if (arrowRenderer) return arrowRenderer(open);
+
+    const arrowClass = getStyle(StyleKeys.Arrow);
     return <div className={arrowClass} />
   }, [open, hideArrow, arrowRenderer]);
 

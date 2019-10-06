@@ -1,5 +1,5 @@
 import { MutableRefObject } from "react";
-import { DropdownProps, ExtraState, Option } from './types';
+import { DropdownProps, ExtraState } from './types';
 declare const useDropdownHooks: (props: DropdownProps) => {
     internalSelectedOption: string | null;
     setInternalSelectedOption: import("react").Dispatch<import("react").SetStateAction<string | null>>;
@@ -12,6 +12,6 @@ declare const useDropdownHooks: (props: DropdownProps) => {
     closeDropdown: (focus?: any) => void;
     dropdownButton: MutableRefObject<HTMLButtonElement | null>;
     container: MutableRefObject<HTMLDivElement | null>;
-    flattenedOptions: Option[];
+    flattenedOptions: import("./types").Option[];
 };
 export default useDropdownHooks;
