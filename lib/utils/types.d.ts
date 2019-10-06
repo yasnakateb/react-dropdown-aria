@@ -1,13 +1,14 @@
-/// <reference types="node" />
-import { MouseEvent, KeyboardEvent, ReactNode } from 'react';
+import { ReactNode, MutableRefObject } from 'react';
 import { StyleKeys } from './constants';
+import { OptionItemProps } from '../components/OptionItem';
 export interface ExtraState {
     [key: string]: any;
 }
 export declare type StyleKey = keyof typeof StyleKeys;
-declare type StyleFunction = (base: {}, state: DropdownState, extraState?: {}) => {};
-declare type OptionRendererFunction = (selectedOption: string, optionsArray: DropdownOption[], onOptionClicked: (e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>) => void, elementsRef: any[], getStyle: (key: StyleKey, extraState?: ExtraState) => string) => ReactNode;
-interface DropdownStyle {
+declare type StyleFunction = (base: {}, state: DropdownStyleDependantState, extraState?: {}) => {};
+export declare type GetStyleFunction = (key: StyleKey, extraState?: ExtraState) => string;
+export declare type OptionRendererFunction = (props: OptionItemProps, optionRef: MutableRefObject<HTMLButtonElement | null>, getStyle: GetStyleFunction) => JSX.Element;
+export interface DropdownStyle {
     Arrow?: StyleFunction;
     DropdownButton?: StyleFunction;
     DisplayedValue?: StyleFunction;
@@ -30,12 +31,13 @@ export interface OptionGroup {
     groupOptions: Option[];
 }
 export declare type DropdownOption = Option | OptionGroup;
-export interface DropdownState {
+export interface DropdownStyleDependantState {
     open: boolean;
-    searchTerm: string;
-    searchTimer: NodeJS.Timer | null;
     focusedIndex: number;
-    internalSelectedOption: string;
+    internalSelectedOption: string | null;
+}
+export interface DropdownState extends DropdownStyleDependantState {
+    searchTerm: string;
 }
 export interface DropdownProps {
     ariaDescribedBy: string;
@@ -52,13 +54,11 @@ export interface DropdownProps {
     maxContentHeight: number;
     openUp: boolean;
     options: DropdownOption[];
-    optionClassName: string;
-    optionRenderer: OptionRendererFunction;
+    optionItemRenderer: OptionRendererFunction;
     pageKeyTraverseSize: number;
     placeholder: string;
     searchable: boolean;
     selectedOption: string;
-    selectedOptionClassName: string;
     selectedValueClassName: string;
     setSelected: (option: string) => void;
     style: DropdownStyle;

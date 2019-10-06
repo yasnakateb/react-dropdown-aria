@@ -15,11 +15,6 @@ const GreenCheckbox = withStyles({
       color: green[600],
     },
   },
-  icon: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: '3px',
-    borderWidth: '1px',
-  },
   checked: {},
 })(props => <Checkbox color="default" {...props} />);
 
@@ -28,7 +23,6 @@ const ExampleSection = ({ title, fileName, children }) => {
   const [searchable, setSearchable] = useState(true);
 
   const handleCheckboxClick = type => ({target}) => {
-    console.log(target.id);
     if (type === 'disable') {
       setDisabled(target.checked);
     } else {

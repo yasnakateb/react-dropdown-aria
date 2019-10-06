@@ -1,7 +1,8 @@
-import { Component } from 'react';
-import { DropdownProps, DropdownState } from '../utils/types';
-declare class Dropdown extends Component<DropdownProps, DropdownState> {
-    static defaultProps: {
+/// <reference types="react" />
+import { DropdownProps } from '../utils/types';
+declare const Dropdown: {
+    (props: DropdownProps): JSX.Element;
+    defaultProps: {
         ariaDescribedBy: null;
         ariaLabel: null;
         ariaLabelledBy: null;
@@ -15,39 +16,15 @@ declare class Dropdown extends Component<DropdownProps, DropdownState> {
         id: null;
         maxContentHeight: null;
         openUp: boolean;
-        optionClassName: null;
-        optionRenderer: undefined;
+        optionItemRenderer: undefined;
         options: never[];
         pageKeyTraverseSize: number;
         placeholder: string;
         searchable: boolean;
         selectedOption: null;
-        selectedOptionClassName: null;
         selectedValueClassName: null;
         style: {};
         width: null;
     };
-    state: DropdownState;
-    private elements;
-    private container;
-    private button;
-    constructor(props: DropdownProps);
-    componentDidMount(): void;
-    componentWillUnmount(): void;
-    render(): JSX.Element;
-    private renderArrow;
-    private renderOptions;
-    private onClick;
-    private onDropdownClick;
-    private onOptionClicked;
-    private onKeyDown;
-    private onNavigation;
-    private getStyle;
-    private setFocus;
-    private closeDropdown;
-    private searchDropdown;
-    private searchList;
-    private clearTimer;
-    private clearSearch;
-}
+};
 export default Dropdown;
